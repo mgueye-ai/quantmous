@@ -1,7 +1,6 @@
-import type { CSSProperties, FocusEvent } from 'react'
+import type { FocusEvent } from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { WorkProduct } from '../data/work'
-import { useMediaQuery } from '../hooks/useMediaQuery'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { ArrowDownIcon } from './Icons'
 import { ExternalLink } from './ExternalLink'
@@ -61,84 +60,6 @@ function AppCard({
         <span className="app__domain">{product.domain}</span>
       </p>
     </li>
-  )
-}
-
-function AppsSwipe({ products }: { products: WorkProduct[] }) {
-  const railRef = useRef<HTMLUListElement>(null)
-  const [activeIndex, setActiveIndex] = useState(0)
-
-  useEffect(() => {
-    const rail = railRef.current
-    if (!rail) return
-
-    const sync = () => {
-      const cards = Array.from(rail.children) as HTMLElement[]
-      if (cards.length === 0) return
-      const mid = rail.scrollLeft + rail.clientWidth / 2
-      let nearest = 0
-      let shortest = Infinity
-      for (let i = 0; i < cards.length; i += 1) {
-        const center = cards[i].offsetLeft + cards[i].offsetWidth / 2
-        const gap = Math.abs(center - mid)
-        if (gap < shortest) {
-          shortest = gap
-          nearest = i
-        }
-      }
-      setActiveIndex((current) => (current === nearest ? current : nearest))
-    }
-
-    sync()
-    rail.addEventListener('scroll', sync, { passive: true })
-    return () => rail.removeEventListener('scroll', sync)
-  }, [])
-
-  const progress = products.length > 1 ? activeIndex / (products.length - 1) : 0
-  const active = products[activeIndex] ?? products[0]
-
-  return (
-    <div
-      className="m-carousel m-carousel--apps"
-      style={{ '--tlh-progress': String(progress) } as CSSProperties}
-    >
-      <div className="shell tlh__bar">
-        <p className="tlh__counter">
-          <span className="tlh__counter-now">{String(activeIndex + 1).padStart(2, '0')}</span>
-          <span aria-hidden="true">/</span>
-          <span>{String(products.length).padStart(2, '0')}</span>
-        </p>
-        <p className="tlh__current">{active.name}</p>
-        <p className="tlh__hint">Swipe</p>
-      </div>
-
-      <div className="shell tlh__rail" aria-hidden="true">
-        <span className="tlh__rail-line">
-          <span className="tlh__rail-fill" />
-        </span>
-        <span className="tlh__ticks">
-          {products.map((product, index) => (
-            <span
-              key={product.name}
-              className="tlh__tick"
-              data-state={stateFor(index, activeIndex)}
-              data-passed={index < activeIndex ? 'true' : undefined}
-            />
-          ))}
-        </span>
-      </div>
-
-      <ul
-        className="m-rail"
-        ref={railRef}
-        tabIndex={0}
-        aria-label="Mous Apps collection. Swipe left or right."
-      >
-        {products.map((product) => (
-          <AppCard key={product.name} product={product} />
-        ))}
-      </ul>
-    </div>
   )
 }
 
@@ -330,10 +251,8 @@ interface AppsCollectionProps {
 }
 
 export function AppsCollection({ products }: AppsCollectionProps) {
-  const isWide = useMediaQuery('(min-width: 901px)')
   const prefersReducedMotion = useReducedMotion()
 
-  if (!isWide) return <AppsSwipe products={products} />
   if (prefersReducedMotion) return <AppsGrid products={products} />
   return <AppsHorizontal products={products} />
 }

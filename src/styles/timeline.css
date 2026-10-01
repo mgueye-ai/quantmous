@@ -277,6 +277,22 @@
   }
 }
 
+@media (max-width: 900px) {
+  .tlh__sticky {
+    gap: 0.55rem;
+    padding-block: 0.7rem 1rem;
+  }
+
+  .tlh__track {
+    gap: 1rem;
+    padding-inline: var(--gutter);
+  }
+
+  .tlh-card {
+    width: min(78vw, 20.5rem);
+  }
+}
+
 /* ==========================================================================
    Vertical timeline (wide screens + reduced motion)
    ========================================================================== */

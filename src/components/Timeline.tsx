@@ -1,15 +1,9 @@
-import { useMediaQuery } from '../hooks/useMediaQuery'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { Reveal } from './Reveal'
 import { TimelineHorizontal } from './TimelineHorizontal'
-import { TimelineSwipe } from './TimelineSwipe'
 import { TimelineVertical } from './TimelineVertical'
 
-/** Must match the breakpoint used by `timeline.css` and `work.css`. */
-const WIDE_QUERY = '(min-width: 901px)'
-
 export function Timeline() {
-  const isWide = useMediaQuery(WIDE_QUERY)
   const prefersReducedMotion = useReducedMotion()
 
   return (
@@ -25,13 +19,7 @@ export function Timeline() {
         </Reveal>
       </div>
 
-      {isWide && !prefersReducedMotion ? (
-        <TimelineHorizontal />
-      ) : isWide ? (
-        <TimelineVertical />
-      ) : (
-        <TimelineSwipe />
-      )}
+      {prefersReducedMotion ? <TimelineVertical /> : <TimelineHorizontal />}
     </section>
   )
 }

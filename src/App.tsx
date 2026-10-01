@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/react'
 import { Contact } from './components/Contact'
 import { Focus } from './components/Focus'
 import { Footer } from './components/Footer'
+import { HafizPanel } from './components/HafizPanel'
 import { Hero } from './components/Hero'
 import { Nav } from './components/Nav'
 import { Resume } from './components/Resume'
@@ -31,6 +32,11 @@ export default function App() {
         <Hero />
         <Focus />
         <Timeline />
+        <section className="stack stack--hafiz" aria-label="Becoming a Hafiz">
+          <div className="stack__inner shell">
+            <HafizPanel />
+          </div>
+        </section>
         <Work />
         <Skills />
         <Resume />

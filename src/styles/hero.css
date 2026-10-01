@@ -201,6 +201,15 @@
     height: auto;
     margin-inline: auto;
   }
+
+  .hero__intro {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .hero__actions {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 560px) {

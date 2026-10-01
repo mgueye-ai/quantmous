@@ -333,6 +333,21 @@
   .showcase:not(.showcase--stacked) .showcase__media {
     grid-area: media;
   }
+
+  .apps-h__sticky {
+    gap: 0.55rem;
+    padding-block: 0.7rem 1rem;
+  }
+
+  .apps-h__track {
+    gap: 1rem;
+    padding-inline: var(--gutter);
+  }
+
+  .apps-h .app {
+    flex: 0 0 min(78vw, 20.5rem);
+    width: min(78vw, 20.5rem);
+  }
 }
 
 @media (max-width: 520px) {
