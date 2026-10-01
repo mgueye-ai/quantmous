@@ -22,8 +22,9 @@ export function Resume() {
             </div>
           </div>
           <a
-            className="btn btn--primary"
+            className="btn btn--primary resume__link"
             href={links.resume}
+            download="MoustaphaGueye_Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View Moustapha Gueye's resume (opens in a new tab)"

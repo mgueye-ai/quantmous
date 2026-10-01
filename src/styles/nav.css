@@ -187,19 +187,23 @@
   }
 
   .nav__panel {
-    display: block;
+    display: none;
     position: fixed;
     inset: var(--nav-h) 0 0;
     background: var(--bg);
     border-top: 1px solid var(--line);
     padding: 2rem var(--gutter) 3rem;
     overflow-y: auto;
-    opacity: 0;
-    translate: 0 -8px;
-    transition: opacity 220ms var(--ease), translate 220ms var(--ease);
+    pointer-events: none;
+  }
+
+  .nav__panel[hidden] {
+    display: none !important;
   }
 
   .nav__panel.is-open {
+    display: block;
+    pointer-events: auto;
     opacity: 1;
     translate: 0 0;
   }

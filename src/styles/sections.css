@@ -151,6 +151,26 @@
   color: var(--ink-4);
 }
 
+.resume__link {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  min-height: 44px;
+  touch-action: manipulation;
+}
+
+@media (max-width: 860px) {
+  .resume__panel {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .resume__link {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* ==========================================================================
    Contact
    ========================================================================== */
