@@ -1,3 +1,5 @@
+import { media } from '../lib/media'
+
 /**
  * Site-wide constants: identity, external profiles and navigation.
  * Update links here and every reference across the site follows.
@@ -22,7 +24,7 @@ export const links = {
   hillWebWorks: 'https://hillwebworks.com',
   tedxTalk: 'https://www.youtube.com/watch?v=PAPNFz32_Hg&t=1s',
   synchronyDeck: 'https://canva.link/qyx4phlmu6f2xl6',
-  resume: '/Moustapha-Gueye-Resume.pdf',
+  resume: media.resume,
 } as const
 
 export interface NavItem {

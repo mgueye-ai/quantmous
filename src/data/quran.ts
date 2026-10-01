@@ -1,3 +1,5 @@
+import { media } from '../lib/media'
+
 /**
  * Hafiz progress.
  *
@@ -30,7 +32,7 @@ export const hafiz = {
   updateNote: 'Updated about once a week. Only committed ayahs are counted — nothing is estimated or projected.',
   media: {
     filename: 'hafiz-makkah',
-    src: '/images/hafiz-makkah.webp',
+    src: media.hafizMakkah,
     alt: 'Moustapha Gueye standing before the Kaaba in Masjid al-Haram, Makkah',
     caption: 'Makkah',
     ratio: '1 / 1' as const,

@@ -6,4 +6,14 @@ export default defineConfig({
   server: {
     port: 5173,
   },
+  build: {
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        entryFileNames: 'a/[hash].js',
+        chunkFileNames: 'a/[hash].js',
+        assetFileNames: 'a/[hash][extname]',
+      },
+    },
+  },
 })

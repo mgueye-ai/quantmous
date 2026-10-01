@@ -3,17 +3,17 @@ import { ImageIcon, PlayIcon } from './Icons'
 
 interface MediaFrameProps {
   kind?: 'image' | 'video'
-  /** Descriptive filename (no extension) expected under `public/images/`. */
-  filename: string
+  /** Unused in production; kept so older call sites still type-check. */
+  filename?: string
   alt: string
   caption: string
-  /** Real asset path, e.g. `/images/tedx.jpg`. Falls back to the placeholder. */
+  /** Bundled image URL. Falls back to the placeholder. */
   src?: string
   ratio?: string
   className?: string
   /** Shown instead of the generic icon, e.g. initials on the portrait frame. */
   monogram?: string
-  /** Drops the caption and filename hint for small thumbnail slots. */
+  /** Drops the caption for small thumbnail slots. */
   compact?: boolean
   /** Loads eagerly — use for above-the-fold images such as the hero portrait. */
   priority?: boolean
@@ -33,7 +33,6 @@ interface MediaFrameProps {
  */
 export function MediaFrame({
   kind = 'image',
-  filename,
   alt,
   caption,
   src,
@@ -84,7 +83,6 @@ export function MediaFrame({
           ) : (
             <>
               <span className="media__caption">{caption}</span>
-              <span className="media__file">public/images/{filename}.jpg</span>
               <span className="media__badge">Placeholder</span>
             </>
           )}

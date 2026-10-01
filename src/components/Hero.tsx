@@ -1,4 +1,5 @@
 import { person } from '../data/site'
+import { media } from '../lib/media'
 import { ArrowDownIcon } from './Icons'
 import { MediaFrame } from './MediaFrame'
 
@@ -22,7 +23,7 @@ export function Hero() {
           <div className="hero__portrait">
             <MediaFrame
               filename="moustapha-headshot"
-              src="/images/moustapha-headshot.webp"
+              src={media.headshot}
               alt="Professional headshot of Moustapha Gueye"
               caption="Professional headshot"
               ratio="4 / 5"

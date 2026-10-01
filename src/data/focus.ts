@@ -1,3 +1,5 @@
+import { media } from '../lib/media'
+
 /** Content for the "What I'm Building Toward" section. */
 
 export const quantFocus = {
@@ -89,7 +91,7 @@ export const race = {
   location: 'Cozumel, Mexico',
   window: 'November 2027',
   targetDate: '2027-11-21T07:00:00-05:00',
-  logoSrc: '/images/ironman-wordmark.png',
+  logoSrc: media.ironmanWordmark,
   logoAlt: 'IRONMAN',
   /** The stretch goal the splits are measured against, in seconds. */
   stretchGoalSeconds: 10 * 60 * 60,

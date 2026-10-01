@@ -1,3 +1,4 @@
+import { media } from '../lib/media'
 import { links } from './site'
 
 /**
@@ -17,7 +18,7 @@ export interface WorkProduct {
   href: string
   /** Domain shown under the preview. */
   domain: string
-  /** Preview image in `public/images/`. */
+  /** Bundled preview image URL. */
   preview: string
   /** Reach as published on mousapps.com, when there is a figure. */
   reach?: string
@@ -56,7 +57,7 @@ export const projects: WorkProject[] = [
       filename: 'mous-apps-site',
       alt: 'The Mous Apps collection page listing every app Moustapha has built',
       caption: 'mousapps.com',
-      src: '/images/mous-apps-site.jpg',
+      src: media.mousAppsSite,
     },
     href: links.mousApps,
     linkLabel: 'Visit mousapps.com',
@@ -68,7 +69,7 @@ export const projects: WorkProject[] = [
           'Brings prayer tracking, Islamic lessons, a Quran and hadith library, and home-screen widgets into a single app.',
         href: 'https://huda-app.com',
         domain: 'huda-app.com',
-        preview: '/images/app-huda.jpg',
+        preview: media.appHuda,
         reach: '3K+ users',
         status: 'Live',
       },
@@ -79,7 +80,7 @@ export const projects: WorkProject[] = [
           'A ticketing platform for concerts, festivals, and cultural events, with a dashboard for organisers to sell tickets and manage check-ins.',
         href: 'https://samba-site-woad.vercel.app',
         domain: 'samba-site-woad.vercel.app',
-        preview: '/images/app-samba.jpg',
+        preview: media.appSamba,
         reach: '5K+ users',
         status: 'Live',
       },
@@ -90,7 +91,7 @@ export const projects: WorkProject[] = [
           'An academic study assistant built around a student’s actual classes, with AI help and a built-in document editor.',
         href: 'https://genius-site.com',
         domain: 'genius-site.com',
-        preview: '/images/app-genius.jpg',
+        preview: media.appGenius,
         reach: '1.5K+ users',
         status: 'Live',
       },
@@ -101,7 +102,7 @@ export const projects: WorkProject[] = [
           'Combines calorie logging, workout planning, and progress tracking, including barcode and photo food scanning.',
         href: 'https://plates-site.com',
         domain: 'plates-site.com',
-        preview: '/images/app-plates.jpg',
+        preview: media.appPlates,
         reach: '1K+ users',
         status: 'Live',
       },
@@ -112,7 +113,7 @@ export const projects: WorkProject[] = [
           'A booking and client-management app for stylists, braiders, barbers, and lash and makeup artists, with a hosted booking site for each pro.',
         href: 'https://styldd.com',
         domain: 'styldd.com',
-        preview: '/images/app-styld.jpg',
+        preview: media.appStyld,
         status: 'Live',
       },
       {
@@ -122,7 +123,7 @@ export const projects: WorkProject[] = [
           'A connected savings device and companion app: deposit cash or tap a card, and an LED bar on the device fills as the goal gets closer.',
         href: 'https://toostackd.com',
         domain: 'toostackd.com',
-        preview: '/images/app-stackd.jpg',
+        preview: media.appStackd,
         status: 'In development',
       },
     ],
@@ -142,7 +143,7 @@ export const projects: WorkProject[] = [
       filename: 'hill-web-works-site',
       alt: 'The Hill Web Works homepage, showing the agency’s brand-scaling services',
       caption: 'hillwebworks.com',
-      src: '/images/hill-web-works-site.jpg',
+      src: media.hillWebWorksSite,
     },
     href: links.hillWebWorks,
     linkLabel: 'Visit hillwebworks.com',

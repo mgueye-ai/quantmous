@@ -1,3 +1,4 @@
+import { media } from '../lib/media'
 import { links } from './site'
 
 /**
@@ -24,13 +25,13 @@ export type TimelineCategory =
 export interface TimelineMedia {
   /** Visual treatment of the slot. */
   kind: 'image' | 'video'
-  /** Descriptive filename, without extension, expected in `public/images/`. */
+  /** Label used only if the image is missing. */
   filename: string
   /** Alt text used once a real asset is dropped in. */
   alt: string
   /** Short label shown on the placeholder frame. */
   caption: string
-  /** Set once the real asset exists, e.g. `/images/tedx.jpg`. */
+  /** Bundled image URL. */
   src?: string
   /** Aspect ratio of the media frame. */
   ratio?: '16 / 9' | '4 / 3' | '3 / 2' | '1 / 1'
@@ -88,7 +89,7 @@ export const timeline: TimelineEntry[] = [
       filename: 'tedx-talk',
       alt: 'Moustapha Gueye speaking at the microphone on the TEDxYouth@NewLondon stage, with his name on the screen behind him',
       caption: 'TEDx presentation',
-      src: '/images/tedx-talk.jpg',
+      src: media.tedxTalk,
       ratio: '16 / 9',
     },
     links: [{ href: links.tedxTalk, label: 'Watch Presentation' }],
@@ -110,7 +111,7 @@ export const timeline: TimelineEntry[] = [
       filename: 'football',
       alt: 'Moustapha Gueye lined up at cornerback in a white and navy uniform, facing a receiver during a game',
       caption: 'Football photography',
-      src: '/images/football.png',
+      src: media.football,
       ratio: '3 / 2',
       focalPoint: '30% 18%',
     },
@@ -130,7 +131,7 @@ export const timeline: TimelineEntry[] = [
       filename: 'mystical-math',
       alt: 'The Mystical Math group standing in the desert with the Giza pyramids behind them',
       caption: 'Program photography',
-      src: '/images/mystical-math.png',
+      src: media.mysticalMath,
       ratio: '3 / 2',
       focalPoint: 'center 38%',
     },
@@ -151,7 +152,7 @@ export const timeline: TimelineEntry[] = [
       filename: 'choate-crest',
       alt: 'The Choate Rosemary Hall coat of arms, with the motto Fidelitas et Integritas',
       caption: 'Choate Rosemary Hall',
-      src: '/images/choate-crest.png',
+      src: media.choateCrest,
       ratio: '16 / 9',
       fit: 'contain',
       tone: 'dark',
@@ -172,7 +173,7 @@ export const timeline: TimelineEntry[] = [
       filename: 'mous-apps-site',
       alt: 'The mousapps.com collection page listing the Hudā, Plates, Genius, Samba, Stackd and Styld apps',
       caption: 'mousapps.com',
-      src: '/images/mous-apps-site.jpg',
+      src: media.mousAppsSite,
       ratio: '16 / 9',
     },
     links: [{ href: links.mousApps, label: 'Visit Website' }],
@@ -196,7 +197,7 @@ export const timeline: TimelineEntry[] = [
       filename: 'futtuwa-retreat',
       alt: 'Retreat participants walking a dirt path through an olive grove in the hills outside Granada, Spain',
       caption: 'Retreat photography',
-      src: '/images/futtuwa-retreat.png',
+      src: media.futtuwaRetreat,
       ratio: '3 / 2',
       focalPoint: 'center 55%',
     },
@@ -215,7 +216,7 @@ export const timeline: TimelineEntry[] = [
       filename: 'hill-web-works-site',
       alt: 'The hillwebworks.com homepage, headlined “Scale Your Brand”',
       caption: 'hillwebworks.com',
-      src: '/images/hill-web-works-site.jpg',
+      src: media.hillWebWorksSite,
       ratio: '16 / 9',
     },
     links: [{ href: links.hillWebWorks, label: 'Visit Website' }],
@@ -240,7 +241,7 @@ export const timeline: TimelineEntry[] = [
       filename: 'synchrony-deck',
       alt: 'Title slide of the Synchrony Credit Lifestyle Ecosystem presentation, listing Moustapha Gueye among the presenters',
       caption: 'Presentation preview',
-      src: '/images/synchrony-deck.jpg',
+      src: media.synchronyDeck,
       ratio: '16 / 9',
     },
     links: [{ href: links.synchronyDeck, label: 'View Presentation' }],
@@ -265,7 +266,7 @@ export const timeline: TimelineEntry[] = [
       filename: 'brazil-immersion',
       alt: 'The BCLC Brazil immersion cohort holding a University of Connecticut Summer Business Connection banner alongside students in São Paulo',
       caption: 'Immersion photography',
-      src: '/images/brazil-immersion.png',
+      src: media.brazilImmersion,
       ratio: '3 / 2',
       focalPoint: 'center 42%',
     },
@@ -290,7 +291,7 @@ export const timeline: TimelineEntry[] = [
       filename: 'nyu-logo',
       alt: 'The New York University torch logo',
       caption: 'New York University',
-      src: '/images/nyu-logo.png',
+      src: media.nyuLogo,
       ratio: '16 / 9',
       fit: 'contain',
       tone: 'dark',
