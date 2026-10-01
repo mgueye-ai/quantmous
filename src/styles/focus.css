@@ -449,6 +449,28 @@
   }
 }
 
+@media (max-width: 860px) {
+  .leg__stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.45rem 0.55rem;
+  }
+
+  .leg__stats dt {
+    font-size: 0.56rem;
+    letter-spacing: 0.07em;
+  }
+
+  .leg__stats dd {
+    font-size: 0.78rem;
+    line-height: 1.25;
+    white-space: normal;
+  }
+
+  .leg__stat--strong {
+    font-size: 0.98rem;
+  }
+}
+
 @media (max-width: 520px) {
   .race__unit {
     min-width: 0;

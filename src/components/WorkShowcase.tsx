@@ -67,46 +67,48 @@ export function WorkShowcase({ project, index }: WorkShowcaseProps) {
       {hasProducts ? (
         <Reveal className="apps">
           <h4 className="panel__label">The collection — live sites</h4>
-          <ul className="apps__list">
-            {project.products!.map((product) => (
-              <li key={product.name} className="app">
-                <ExternalLink
-                  href={product.href}
-                  className="app__link"
-                  label={`${product.name} — ${product.domain}`}
-                  withArrow={false}
-                >
-                  <MediaFrame
-                    filename={product.name.toLowerCase()}
-                    alt={`The ${product.name} website — ${product.tagline}`}
-                    caption={product.domain}
-                    src={product.preview}
-                    ratio="16 / 9"
-                    className="app__media"
-                  />
-                </ExternalLink>
-
-                <div className="app__head">
-                  <h5 className="app__name">{product.name}</h5>
-                  <span
-                    className={`app__status${
-                      product.status === 'Live' ? ' app__status--live' : ''
-                    }`}
+          <div className="apps__scroller">
+            <ul className="apps__list">
+              {project.products!.map((product) => (
+                <li key={product.name} className="app">
+                  <ExternalLink
+                    href={product.href}
+                    className="app__link"
+                    label={`${product.name} — ${product.domain}`}
+                    withArrow={false}
                   >
-                    {product.status}
-                  </span>
-                </div>
+                    <MediaFrame
+                      filename={product.name.toLowerCase()}
+                      alt={`The ${product.name} website — ${product.tagline}`}
+                      caption={product.domain}
+                      src={product.preview}
+                      ratio="16 / 9"
+                      className="app__media"
+                    />
+                  </ExternalLink>
 
-                <p className="app__tagline">{product.tagline}</p>
-                <p className="app__description">{product.description}</p>
+                  <div className="app__head">
+                    <h5 className="app__name">{product.name}</h5>
+                    <span
+                      className={`app__status${
+                        product.status === 'Live' ? ' app__status--live' : ''
+                      }`}
+                    >
+                      {product.status}
+                    </span>
+                  </div>
 
-                <p className="app__meta">
-                  {product.reach ? <span className="app__reach">{product.reach}</span> : null}
-                  <span className="app__domain">{product.domain}</span>
-                </p>
-              </li>
-            ))}
-          </ul>
+                  <p className="app__tagline">{product.tagline}</p>
+                  <p className="app__description">{product.description}</p>
+
+                  <p className="app__meta">
+                    {product.reach ? <span className="app__reach">{product.reach}</span> : null}
+                    <span className="app__domain">{product.domain}</span>
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </Reveal>
       ) : (
         <div className="showcase__media">

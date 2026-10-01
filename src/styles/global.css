@@ -80,8 +80,20 @@ body {
 @media (max-width: 860px) {
   html,
   body {
-    overflow-x: hidden;
     max-width: 100%;
+  }
+
+  /* Clip page-level overflow without trapping swipe carousels. */
+  .hero,
+  .stack,
+  .section {
+    overflow-x: clip;
+    max-width: 100%;
+  }
+
+  .journey,
+  .stack--mous {
+    overflow-x: visible;
   }
 }
 

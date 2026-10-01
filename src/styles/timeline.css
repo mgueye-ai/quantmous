@@ -300,12 +300,13 @@
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  overflow-x: auto;
+  overflow-x: scroll;
   overflow-y: hidden;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
   scroll-padding-inline: var(--gutter);
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pinch-zoom;
   scrollbar-width: thin;
 }
 
@@ -319,6 +320,7 @@
 }
 
 .tls .tlh-card {
+  flex: 0 0 min(78vw, 22rem);
   scroll-snap-align: start;
   scroll-snap-stop: always;
   width: min(78vw, 22rem);
