@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import { Contact } from './components/Contact'
 import { Focus } from './components/Focus'
 import { Footer } from './components/Footer'
@@ -37,6 +38,7 @@ export default function App() {
       </main>
 
       <Footer />
+      <Analytics />
     </>
   )
 }
