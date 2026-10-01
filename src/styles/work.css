@@ -113,6 +113,63 @@
   margin-top: 1rem;
 }
 
+.apps-h {
+  position: relative;
+  height: calc(100svh + var(--tlh-distance, 0px) + var(--tlh-hold, 0px));
+  margin-top: 0.5rem;
+}
+
+.apps-h__sticky {
+  position: sticky;
+  top: var(--nav-h);
+  height: calc(100svh - var(--nav-h));
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 0.9rem;
+  padding-block: 1.25rem 2rem;
+}
+
+.apps-h__viewport {
+  overflow: clip;
+  min-height: 0;
+  min-width: 0;
+}
+
+.apps-h__track {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(1.25rem, 0.5rem + 1.5vw, 2.25rem);
+  height: 100%;
+  padding-inline: max(var(--gutter), (100% - var(--maxw)) / 2 + var(--gutter));
+  will-change: transform;
+}
+
+.apps-h .app {
+  flex: 0 0 clamp(260px, 26vw, 360px);
+  width: clamp(260px, 26vw, 360px);
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  opacity: 0.42;
+  scale: 0.975;
+  transform-origin: center top;
+  transition: opacity 420ms var(--ease), scale 420ms var(--ease);
+}
+
+.apps-h .app[data-state='adjacent'] {
+  opacity: 0.72;
+}
+
+.apps-h .app[data-state='active'] {
+  opacity: 1;
+  scale: 1;
+}
+
+.apps-h .app__link:hover {
+  transform: none;
+}
+
 .apps__list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
@@ -277,19 +334,20 @@
     grid-area: media;
   }
 
+  .showcase,
+  .apps {
+    min-width: 0;
+    max-width: 100%;
+  }
+
   .apps__scroller {
     width: calc(100% + (var(--gutter) * 2));
     max-width: none;
     min-width: 0;
     margin-inline: calc(var(--gutter) * -1);
-    overflow-x: scroll;
-    overflow-y: hidden;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--gutter);
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-x pinch-zoom;
-    scrollbar-width: thin;
+    overflow: hidden;
+    touch-action: pan-y;
+    cursor: grab;
   }
 
   .apps__list {
@@ -303,6 +361,8 @@
     padding-inline: var(--gutter);
     padding-bottom: 0.6rem;
     overflow: visible;
+    will-change: transform;
+    user-select: none;
   }
 
   .app {

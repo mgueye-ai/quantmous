@@ -1,4 +1,5 @@
 import { projects } from '../data/work'
+import { AppsCollection } from './AppsCollection'
 import { WorkShowcase } from './WorkShowcase'
 
 const themes: Record<string, string> = {
@@ -19,6 +20,7 @@ export function Work() {
           <div className="stack__inner shell">
             <WorkShowcase project={project} index={index} />
           </div>
+          {project.products ? <AppsCollection products={project.products} /> : null}
         </section>
       ))}
     </>

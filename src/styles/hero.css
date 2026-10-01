@@ -35,7 +35,7 @@
   flex-direction: column;
   width: 100%;
   max-width: none;
-  padding-inline: clamp(1.5rem, 10vw, 10rem);
+  padding-inline: clamp(1.5rem, 5vw, 5rem);
 }
 
 .hero__meta {
@@ -161,7 +161,13 @@
   }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1200px) {
+  .hero__name {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 1040px) {
   .hero {
     padding-block: calc(var(--nav-h) + 2.75rem) 5.5rem;
   }
@@ -191,7 +197,7 @@
   }
 
   .hero__portrait .media--portrait {
-    width: min(100%, 20rem);
+    width: min(100%, 22rem);
     height: auto;
     margin-inline: auto;
   }

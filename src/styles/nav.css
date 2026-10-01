@@ -27,11 +27,13 @@
 
 .nav__inner {
   position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   width: 100%;
   height: var(--nav-h);
   padding-inline: 1.25rem var(--gutter);
+  column-gap: 1.25rem;
 }
 
 .nav__brand {
@@ -40,17 +42,17 @@
   font-size: 0.95rem;
   font-weight: 600;
   letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
 .nav__quote {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  translate: -50% -50%;
   margin: 0;
+  min-width: 0;
   text-align: center;
   color: var(--ink-2);
   pointer-events: none;
+  justify-self: center;
+  max-width: 100%;
 }
 
 .nav__quote em {
@@ -58,6 +60,10 @@
   font-size: 0.98rem;
   letter-spacing: -0.01em;
   font-weight: 400;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .nav__end {
@@ -66,7 +72,6 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  margin-left: auto;
 }
 
 .nav__links ul {
@@ -130,18 +135,35 @@
 }
 
 @media (max-width: 1180px) {
+  .nav__inner {
+    grid-template-columns: auto 1fr;
+  }
+
   .nav__quote {
     display: none;
+  }
+
+  .nav__end {
+    justify-self: end;
   }
 }
 
 @media (max-width: 1040px) {
+  .nav__social {
+    display: none;
+  }
+
   .nav__link {
-    padding-inline: 0.6rem;
+    padding-inline: 0.55rem;
   }
 }
 
 @media (max-width: 860px) {
+  .nav__inner {
+    display: flex;
+    column-gap: 0;
+  }
+
   .nav__links,
   .nav__social {
     display: none;
@@ -149,8 +171,6 @@
 
   .nav__quote {
     display: block;
-    position: static;
-    translate: none;
     flex: 1;
     min-width: 0;
     padding-inline: 0.65rem;
@@ -160,10 +180,6 @@
   .nav__quote em {
     font-size: 0.78rem;
     letter-spacing: -0.015em;
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .nav__toggle {

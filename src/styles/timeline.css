@@ -24,7 +24,8 @@
 .tlh__bar {
   display: flex;
   align-items: baseline;
-  gap: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.55rem 1.25rem;
 }
 
 .tlh__counter {
@@ -300,14 +301,9 @@
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: var(--gutter);
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-x pinch-zoom;
-  scrollbar-width: thin;
+  overflow: hidden;
+  touch-action: pan-y;
+  cursor: grab;
 }
 
 .tls__track {
@@ -317,6 +313,8 @@
   width: max-content;
   padding-inline: var(--gutter);
   padding-bottom: 0.75rem;
+  will-change: transform;
+  user-select: none;
 }
 
 .tls .tlh-card {

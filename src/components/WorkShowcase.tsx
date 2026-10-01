@@ -9,8 +9,6 @@ interface WorkShowcaseProps {
 }
 
 export function WorkShowcase({ project, index }: WorkShowcaseProps) {
-  // Companies with their own product line lead with a grid of live product
-  // previews; the rest sit beside a single preview of the company site.
   const hasProducts = Boolean(project.products?.length)
 
   return (
@@ -64,53 +62,7 @@ export function WorkShowcase({ project, index }: WorkShowcaseProps) {
         </div>
       </Reveal>
 
-      {hasProducts ? (
-        <Reveal className="apps">
-          <h4 className="panel__label">The collection — live sites</h4>
-          <div className="apps__scroller">
-            <ul className="apps__list">
-              {project.products!.map((product) => (
-                <li key={product.name} className="app">
-                  <ExternalLink
-                    href={product.href}
-                    className="app__link"
-                    label={`${product.name} — ${product.domain}`}
-                    withArrow={false}
-                  >
-                    <MediaFrame
-                      filename={product.name.toLowerCase()}
-                      alt={`The ${product.name} website — ${product.tagline}`}
-                      caption={product.domain}
-                      src={product.preview}
-                      ratio="16 / 9"
-                      className="app__media"
-                    />
-                  </ExternalLink>
-
-                  <div className="app__head">
-                    <h5 className="app__name">{product.name}</h5>
-                    <span
-                      className={`app__status${
-                        product.status === 'Live' ? ' app__status--live' : ''
-                      }`}
-                    >
-                      {product.status}
-                    </span>
-                  </div>
-
-                  <p className="app__tagline">{product.tagline}</p>
-                  <p className="app__description">{product.description}</p>
-
-                  <p className="app__meta">
-                    {product.reach ? <span className="app__reach">{product.reach}</span> : null}
-                    <span className="app__domain">{product.domain}</span>
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
-      ) : (
+      {!hasProducts ? (
         <div className="showcase__media">
           <ExternalLink
             href={project.href}
@@ -128,7 +80,7 @@ export function WorkShowcase({ project, index }: WorkShowcaseProps) {
           </ExternalLink>
           <p className="showcase__media-note">Site preview · {project.media.caption}</p>
         </div>
-      )}
+      ) : null}
     </article>
   )
 }

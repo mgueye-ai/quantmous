@@ -5,7 +5,7 @@ import { TimelineDetail } from './TimelineDetail'
 import { TimelineItem, type EntryState } from './TimelineItem'
 
 /** Must match the breakpoint used by `timeline.css`. */
-const DESKTOP_QUERY = '(min-width: 861px)'
+const DESKTOP_QUERY = '(min-width: 901px)'
 
 function stateFor(index: number, activeIndex: number): EntryState {
   if (index === activeIndex) return 'active'

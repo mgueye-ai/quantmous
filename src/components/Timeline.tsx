@@ -5,8 +5,8 @@ import { TimelineHorizontal } from './TimelineHorizontal'
 import { TimelineSwipe } from './TimelineSwipe'
 import { TimelineVertical } from './TimelineVertical'
 
-/** Must match the breakpoint used by `timeline.css`. */
-const WIDE_QUERY = '(min-width: 861px)'
+/** Must match the breakpoint used by `timeline.css` and `work.css`. */
+const WIDE_QUERY = '(min-width: 901px)'
 
 export function Timeline() {
   const isWide = useMediaQuery(WIDE_QUERY)
