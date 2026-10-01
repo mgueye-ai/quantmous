@@ -179,8 +179,6 @@
 .journey {
   position: relative;
   background: #ffffff;
-  overflow-x: hidden;
-  max-width: 100%;
 }
 
 .footer {

@@ -14,11 +14,8 @@ export function WorkShowcase({ project, index }: WorkShowcaseProps) {
   const hasProducts = Boolean(project.products?.length)
 
   return (
-    <Reveal
-      as="article"
-      className={`showcase${hasProducts ? ' showcase--stacked' : ''}`}
-    >
-      <div className="showcase__body">
+    <article className={`showcase${hasProducts ? ' showcase--stacked' : ''}`}>
+      <Reveal className="showcase__body">
         <div className="showcase__head">
           <p className="showcase__index">{String(index + 1).padStart(2, '0')}</p>
           <h3 className="showcase__title">{project.name}</h3>
@@ -65,10 +62,10 @@ export function WorkShowcase({ project, index }: WorkShowcaseProps) {
             {project.linkLabel}
           </ExternalLink>
         </div>
-      </div>
+      </Reveal>
 
       {hasProducts ? (
-        <div className="apps">
+        <Reveal className="apps">
           <h4 className="panel__label">The collection — live sites</h4>
           <ul className="apps__list">
             {project.products!.map((product) => (
@@ -110,7 +107,7 @@ export function WorkShowcase({ project, index }: WorkShowcaseProps) {
               </li>
             ))}
           </ul>
-        </div>
+        </Reveal>
       ) : (
         <div className="showcase__media">
           <ExternalLink
@@ -130,6 +127,6 @@ export function WorkShowcase({ project, index }: WorkShowcaseProps) {
           <p className="showcase__media-note">Site preview · {project.media.caption}</p>
         </div>
       )}
-    </Reveal>
+    </article>
   )
 }
