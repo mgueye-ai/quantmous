@@ -1,6 +1,6 @@
-import type { CSSProperties, RefObject } from 'react'
-import { useSwipeCarousel } from '../hooks/useSwipeCarousel'
+import type { CSSProperties } from 'react'
 import { timeline } from '../data/timeline'
+import { useScrollSnapIndex } from '../hooks/useScrollSnapIndex'
 import { TimelineCard } from './TimelineCard'
 import type { EntryState } from './TimelineItem'
 
@@ -11,11 +11,11 @@ function stateFor(index: number, activeIndex: number): EntryState {
 }
 
 /**
- * Touch carousel for phones. Desktop keeps the scroll-driven sticky track.
+ * Native finger-swipe carousel for phones. Desktop keeps the scroll-driven
+ * sticky track in TimelineHorizontal.
  */
 export function TimelineSwipe() {
-  const { viewportRef, trackRef, index: activeIndex } = useSwipeCarousel(true)
-  const progress = timeline.length > 1 ? activeIndex / (timeline.length - 1) : 0
+  const { ref, index: activeIndex, progress } = useScrollSnapIndex<HTMLOListElement>()
   const activeEntry = timeline[activeIndex] ?? timeline[0]
 
   return (
@@ -46,25 +46,23 @@ export function TimelineSwipe() {
         </span>
       </div>
 
-      <div
-        className="tls__viewport"
-        ref={viewportRef}
+      <ol
+        className="tls__scroller"
+        ref={ref}
         tabIndex={0}
         role="region"
         aria-roledescription="carousel"
         aria-label="Journey timeline. Swipe left or right to move between entries."
       >
-        <ol className="tls__track" ref={trackRef as RefObject<HTMLOListElement>}>
-          {timeline.map((entry, index) => (
-            <TimelineCard
-              key={entry.id}
-              entry={entry}
-              index={index}
-              state={stateFor(index, activeIndex)}
-            />
-          ))}
-        </ol>
-      </div>
+        {timeline.map((entry, index) => (
+          <TimelineCard
+            key={entry.id}
+            entry={entry}
+            index={index}
+            state={stateFor(index, activeIndex)}
+          />
+        ))}
+      </ol>
     </div>
   )
 }

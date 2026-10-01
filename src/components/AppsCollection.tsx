@@ -1,9 +1,9 @@
-import type { FocusEvent, RefObject } from 'react'
+import type { FocusEvent } from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { WorkProduct } from '../data/work'
 import { useMediaQuery } from '../hooks/useMediaQuery'
 import { useReducedMotion } from '../hooks/useReducedMotion'
-import { useSwipeCarousel } from '../hooks/useSwipeCarousel'
+import { useScrollSnapIndex } from '../hooks/useScrollSnapIndex'
 import { ArrowDownIcon } from './Icons'
 import { ExternalLink } from './ExternalLink'
 import { MediaFrame } from './MediaFrame'
@@ -66,23 +66,27 @@ function AppCard({
 }
 
 function AppsSwipe({ products }: { products: WorkProduct[] }) {
-  const { viewportRef, trackRef } = useSwipeCarousel(true)
+  const { ref, index } = useScrollSnapIndex<HTMLUListElement>()
 
   return (
-    <div className="shell apps">
-      <h4 className="panel__label">The collection — live sites</h4>
-      <div className="apps__scroller" ref={viewportRef}>
-        <ul
-          className="apps__list"
-          ref={trackRef as RefObject<HTMLUListElement>}
-          aria-roledescription="carousel"
-          aria-label="Mous Apps collection"
-        >
-          {products.map((product) => (
-            <AppCard key={product.name} product={product} />
-          ))}
-        </ul>
+    <div className="apps">
+      <div className="shell">
+        <h4 className="panel__label">The collection — live sites</h4>
       </div>
+      <ul
+        className="apps__scroller"
+        ref={ref}
+        tabIndex={0}
+        aria-roledescription="carousel"
+        aria-label="Mous Apps collection. Swipe left or right."
+      >
+        {products.map((product) => (
+          <AppCard key={product.name} product={product} />
+        ))}
+      </ul>
+      <p className="shell apps__hint" aria-hidden="true">
+        {String(index + 1).padStart(2, '0')} / {String(products.length).padStart(2, '0')} · swipe
+      </p>
     </div>
   )
 }

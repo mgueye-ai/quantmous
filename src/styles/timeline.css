@@ -297,31 +297,36 @@
   margin-bottom: 1.1rem;
 }
 
-.tls__viewport {
+.tls__scroller {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 1rem;
+  list-style: none;
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  overflow: hidden;
-  touch-action: pan-y;
-  cursor: grab;
+  margin: 0;
+  padding: 0.15rem var(--gutter) 1rem;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
+  scrollbar-width: thin;
 }
 
-.tls__track {
-  display: flex;
-  align-items: stretch;
-  gap: 1rem;
-  width: max-content;
-  padding-inline: var(--gutter);
-  padding-bottom: 0.75rem;
-  will-change: transform;
-  user-select: none;
+.tls__scroller img {
+  -webkit-user-drag: none;
 }
 
-.tls .tlh-card {
-  flex: 0 0 min(78vw, 22rem);
+.tls__scroller > .tlh-card {
+  flex: 0 0 min(80vw, 20.5rem);
+  width: min(80vw, 20.5rem);
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  width: min(78vw, 22rem);
   height: auto;
   opacity: 1;
   scale: 1;

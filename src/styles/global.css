@@ -77,17 +77,24 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 900px) {
   html,
   body {
     max-width: 100%;
   }
 
   .hero,
-  .stack,
-  .section {
+  .stack:not(.stack--mous),
+  .section:not(.journey) {
     overflow-x: clip;
     max-width: 100%;
+  }
+
+  /* Native swipe carousels need a visible overflow ancestor. */
+  .journey,
+  .stack--mous {
+    overflow-x: visible;
+    overflow-y: visible;
   }
 }
 
