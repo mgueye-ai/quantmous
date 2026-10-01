@@ -77,24 +77,32 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 860px) {
   html,
   body {
     max-width: 100%;
   }
 
   .hero,
-  .stack:not(.stack--mous),
-  .section:not(.journey) {
+  .stack,
+  .section {
     overflow-x: clip;
     max-width: 100%;
   }
 
-  /* Native swipe carousels need a visible overflow ancestor. */
-  .journey,
-  .stack--mous {
+  /* Native finger-rails live in these sections and need a real scrollport. */
+  .section.journey,
+  .stack.stack--mous {
     overflow-x: visible;
-    overflow-y: visible;
+  }
+}
+
+@media (max-width: 900px) {
+  .section.journey,
+  .stack.stack--mous {
+    overflow-x: visible;
+    min-width: 0;
+    max-width: 100%;
   }
 }
 
@@ -137,6 +145,11 @@ video {
 
 img {
   height: auto;
+}
+
+#main {
+  min-width: 0;
+  max-width: 100%;
 }
 
 a {
@@ -401,6 +414,80 @@ button {
   background: var(--bg-navy-tint);
   border-color: color-mix(in srgb, var(--navy) 14%, transparent);
   color: var(--navy);
+}
+
+/* ==========================================================================
+   Mobile finger carousels (journey + Mous Apps)
+   The list is the scrollport so iOS can swipe it like any native row.
+   ========================================================================== */
+
+.m-carousel {
+  --tlh-progress: 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin-top: 0.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.m-carousel__hint {
+  margin: 0.35rem 0 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+.m-rail {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  gap: 0.9rem;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0.85rem 0 0;
+  padding: 0.15rem var(--gutter) 1.15rem;
+  list-style: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.m-rail::-webkit-scrollbar {
+  display: none;
+}
+
+.m-rail > .tlh-card,
+.m-rail > .app {
+  box-sizing: border-box;
+  flex: 0 0 min(82vw, 22rem);
+  width: min(82vw, 22rem);
+  max-width: min(82vw, 22rem);
+  min-width: min(82vw, 22rem);
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+  opacity: 1;
+  scale: 1;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.m-rail .tlh-card__inner {
+  overflow: visible;
+}
+
+.m-rail img,
+.m-rail video {
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 /* ==========================================================================

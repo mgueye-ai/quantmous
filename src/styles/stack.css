@@ -9,6 +9,7 @@
   position: relative;
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   background: var(--bg);
   color: var(--ink);
 }
@@ -184,6 +185,8 @@
 
 .journey {
   position: relative;
+  min-width: 0;
+  max-width: 100%;
   background: #ffffff;
 }
 

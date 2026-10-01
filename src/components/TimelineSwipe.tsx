@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { timeline } from '../data/timeline'
-import { useScrollSnapIndex } from '../hooks/useScrollSnapIndex'
 import { TimelineCard } from './TimelineCard'
 import type { EntryState } from './TimelineItem'
 
@@ -11,15 +11,44 @@ function stateFor(index: number, activeIndex: number): EntryState {
 }
 
 /**
- * Native finger-swipe carousel for phones. Desktop keeps the scroll-driven
- * sticky track in TimelineHorizontal.
+ * Phone-only journey carousel: the list itself is a native finger-scroll
+ * row. Desktop still uses TimelineHorizontal.
  */
 export function TimelineSwipe() {
-  const { ref, index: activeIndex, progress } = useScrollSnapIndex<HTMLOListElement>()
+  const railRef = useRef<HTMLOListElement>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  useEffect(() => {
+    const rail = railRef.current
+    if (!rail) return
+
+    const sync = () => {
+      const cards = Array.from(rail.children) as HTMLElement[]
+      if (cards.length === 0) return
+      const mid = rail.scrollLeft + rail.clientWidth / 2
+      let nearest = 0
+      let shortest = Infinity
+      for (let i = 0; i < cards.length; i += 1) {
+        const center = cards[i].offsetLeft + cards[i].offsetWidth / 2
+        const gap = Math.abs(center - mid)
+        if (gap < shortest) {
+          shortest = gap
+          nearest = i
+        }
+      }
+      setActiveIndex((current) => (current === nearest ? current : nearest))
+    }
+
+    sync()
+    rail.addEventListener('scroll', sync, { passive: true })
+    return () => rail.removeEventListener('scroll', sync)
+  }, [])
+
+  const progress = timeline.length > 1 ? activeIndex / (timeline.length - 1) : 0
   const activeEntry = timeline[activeIndex] ?? timeline[0]
 
   return (
-    <div className="tls" style={{ '--tlh-progress': String(progress) } as CSSProperties}>
+    <div className="m-carousel" style={{ '--tlh-progress': String(progress) } as CSSProperties}>
       <div className="shell tlh__bar">
         <p className="tlh__counter">
           <span className="tlh__counter-now">{String(activeIndex + 1).padStart(2, '0')}</span>
@@ -47,19 +76,17 @@ export function TimelineSwipe() {
       </div>
 
       <ol
-        className="tls__scroller"
-        ref={ref}
+        className="m-rail"
+        ref={railRef}
         tabIndex={0}
-        role="region"
-        aria-roledescription="carousel"
-        aria-label="Journey timeline. Swipe left or right to move between entries."
+        aria-label="Journey timeline. Swipe left or right."
       >
         {timeline.map((entry, index) => (
           <TimelineCard
             key={entry.id}
             entry={entry}
             index={index}
-            state={stateFor(index, activeIndex)}
+            state="active"
           />
         ))}
       </ol>
