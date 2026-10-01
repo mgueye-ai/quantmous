@@ -1,0 +1,215 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  border-bottom: 1px solid transparent;
+  transition: border-color 260ms var(--ease);
+}
+
+/*
+ * The blur lives on a pseudo-element: `backdrop-filter` on the bar itself
+ * would make it the containing block for the fixed mobile menu below it.
+ */
+.nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: saturate(140%) blur(10px);
+}
+
+.nav.is-scrolled {
+  border-bottom-color: var(--line);
+}
+
+.nav__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: var(--nav-h);
+  padding-inline: 1.25rem var(--gutter);
+}
+
+.nav__brand {
+  position: relative;
+  z-index: 1;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.nav__quote {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  margin: 0;
+  text-align: center;
+  color: var(--ink-2);
+  pointer-events: none;
+}
+
+.nav__quote em {
+  font-style: italic;
+  font-size: 0.98rem;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+}
+
+.nav__end {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-left: auto;
+}
+
+.nav__links ul {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.nav__link {
+  position: relative;
+  display: inline-block;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  font-size: var(--fs-small);
+  color: var(--ink-3);
+  transition: color 200ms var(--ease), background-color 200ms var(--ease);
+}
+
+.nav__link:hover {
+  color: var(--ink);
+  background: var(--bg-tint);
+}
+
+.nav__link.is-active {
+  color: var(--navy);
+  font-weight: 500;
+}
+
+.nav__link.is-active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0.1rem;
+  translate: -50% 0;
+  width: 14px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--navy);
+}
+
+.nav__social {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding-left: 0.9rem;
+  border-left: 1px solid var(--line);
+}
+
+.nav__toggle {
+  display: none;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin-right: -0.5rem;
+  border-radius: 8px;
+  color: var(--ink);
+}
+
+.nav__panel {
+  display: none;
+}
+
+@media (max-width: 1180px) {
+  .nav__quote {
+    display: none;
+  }
+}
+
+@media (max-width: 1040px) {
+  .nav__link {
+    padding-inline: 0.6rem;
+  }
+}
+
+@media (max-width: 860px) {
+  .nav__links,
+  .nav__social {
+    display: none;
+  }
+
+  .nav__quote {
+    display: block;
+    position: static;
+    translate: none;
+    flex: 1;
+    min-width: 0;
+    padding-inline: 0.65rem;
+    text-align: center;
+  }
+
+  .nav__quote em {
+    font-size: 0.78rem;
+    letter-spacing: -0.015em;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .nav__toggle {
+    display: grid;
+  }
+
+  .nav__panel {
+    display: block;
+    position: fixed;
+    inset: var(--nav-h) 0 0;
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+    padding: 2rem var(--gutter) 3rem;
+    overflow-y: auto;
+    opacity: 0;
+    translate: 0 -8px;
+    transition: opacity 220ms var(--ease), translate 220ms var(--ease);
+  }
+
+  .nav__panel.is-open {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  .nav__panel-links {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav__panel-links a {
+    display: block;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .nav__panel-links a.is-active {
+    color: var(--navy);
+  }
+
+  .nav__panel-social {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+}

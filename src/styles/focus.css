@@ -1,0 +1,467 @@
+/* Career goal sits above the Ironman journey, each panel full width. */
+.focus__panels {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3.5rem, 2rem + 5vw, 6.5rem);
+}
+
+.panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(2rem, 1rem + 3vw, 4rem);
+  align-items: start;
+  padding-top: 1.75rem;
+  border-top: 2px solid var(--ink);
+}
+
+.panel--ironman {
+  border-top-color: var(--navy);
+  align-items: start;
+}
+
+.panel--ironman .panel__intro {
+  max-width: none;
+  position: static;
+}
+
+.panel--ironman .panel__content {
+  padding-inline-start: clamp(1rem, 2.5vw, 2.75rem);
+}
+
+.panel--hafiz {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  border-top-color: var(--ink);
+  align-items: center;
+}
+
+.panel__intro,
+.panel__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
+.panel__content {
+  container-type: inline-size;
+}
+
+/* Keep the standfirst column readable while the page runs full width. */
+.panel__intro {
+  position: sticky;
+  top: calc(var(--nav-h) + 2.5rem);
+  max-width: 46ch;
+}
+
+.panel__title {
+  font-size: var(--fs-h3);
+}
+
+.panel__study {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: -0.6rem;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--navy);
+}
+
+.panel__study::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: var(--navy-soft);
+  flex: none;
+}
+
+.panel__text {
+  color: var(--ink-2);
+}
+
+.panel__note {
+  padding: 0.85rem 1.1rem;
+  border-left: 2px solid var(--line-strong);
+  background: var(--bg-tint);
+  border-radius: 0 6px 6px 0;
+  font-size: var(--fs-small);
+  color: var(--ink-3);
+  max-width: var(--maxw-text);
+}
+
+.panel__block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.panel__label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+.now {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-top: 1px solid var(--line);
+}
+
+.now__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.now__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.now__title {
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.now__status {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+
+.now__text {
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--ink-2);
+  max-width: 58ch;
+}
+
+.panel__cta {
+  margin-top: 1rem;
+}
+
+/* Goals ------------------------------------------------------------------ */
+
+.goals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1px;
+  width: 100%;
+  margin: 0;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.goals__item {
+  padding: 1rem 1.15rem;
+  background: var(--bg);
+}
+
+.goals dt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  margin-bottom: 0.3rem;
+}
+
+.goals dd {
+  margin: 0;
+  font-size: var(--fs-h4);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+}
+
+/* Target race ------------------------------------------------------------ */
+
+.ironman__logo {
+  display: block;
+  width: min(100%, 32rem);
+  height: auto;
+  margin-left: clamp(-1.75rem, -3.5vw, -0.5rem);
+  mix-blend-mode: screen;
+}
+
+.ironman__meta {
+  margin-top: -0.55rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.race {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.15rem;
+  width: 100%;
+}
+
+.race__countdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  width: 100%;
+}
+
+.race__countdown-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+.race__units {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.15rem 1.6rem;
+}
+
+.race__unit {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.race__unit-value {
+  font-family: var(--font-mono);
+  font-size: clamp(2.15rem, 1.4rem + 2.4vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+  line-height: 0.95;
+}
+
+.race__unit-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+.race__cta {
+  align-self: flex-start;
+}
+
+.panel--ironman .panel__block {
+  gap: 1.4rem;
+  margin-top: 0;
+}
+
+.panel--ironman .legs {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+
+/* Legs ------------------------------------------------------------------- */
+
+.legs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.leg {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 0;
+  min-width: 0;
+}
+
+.panel--ironman .leg {
+  padding: 1.3rem 0 1.4rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.panel--ironman .leg:first-child {
+  padding-top: 0.2rem;
+}
+
+.panel--ironman .leg:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.leg__head {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.leg__icon {
+  color: var(--navy);
+  flex: none;
+}
+
+.leg__name {
+  font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.55rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.leg__distance {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  color: var(--ink-4);
+}
+
+.leg__stats {
+  display: grid;
+  grid-template-columns: minmax(5.75rem, 0.75fr) minmax(7.5rem, 1fr) minmax(0, 1.5fr);
+  gap: 0.85rem 1.35rem;
+  align-items: start;
+  margin: 0.1rem 0 0;
+  width: 100%;
+}
+
+.leg__stats dt {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  margin-bottom: 0.22rem;
+}
+
+.leg__stats dd {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.leg__stat--strong {
+  font-weight: 600;
+  font-size: 1.35rem;
+  color: var(--navy);
+}
+
+/* Hafiz ------------------------------------------------------------------ */
+
+.hafiz__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.hafiz-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  width: 100%;
+}
+
+.hafiz-bar__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.hafiz-bar__value {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--navy);
+}
+
+.hafiz-bar__track {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--navy) 10%, var(--line));
+  overflow: hidden;
+}
+
+.hafiz-bar__fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--navy);
+}
+
+.hafiz-bar__count {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.06em;
+  color: var(--ink-2);
+}
+
+.hafiz-bar__note {
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  color: var(--ink-3);
+  max-width: 52ch;
+}
+
+@container (max-width: 560px) {
+  .legs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 980px) {
+  .panel {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  .panel__intro {
+    position: static;
+    max-width: none;
+  }
+
+  .panel--ironman .panel__content {
+    padding-inline-start: 0;
+  }
+
+  .ironman__logo {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .race__unit {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .legs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .panel__cta,
+  .race__cta {
+    width: 100%;
+    justify-content: center;
+  }
+}

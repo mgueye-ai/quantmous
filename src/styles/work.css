@@ -1,0 +1,311 @@
+.work__list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4rem, 2rem + 6vw, 7rem);
+}
+
+.showcase {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 1rem + 4vw, 4rem);
+  align-items: start;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line-strong);
+}
+
+.stack .showcase {
+  padding-top: 0;
+  border-top: none;
+  width: 100%;
+}
+
+.showcase__media {
+  position: sticky;
+  top: calc(var(--nav-h) + 2.5rem);
+}
+
+.showcase__body,
+.showcase__head,
+.showcase__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.1rem;
+}
+
+.showcase__index {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.16em;
+  color: var(--ink-4);
+}
+
+.showcase__title {
+  font-size: clamp(1.75rem, 1.2rem + 2vw, 2.6rem);
+}
+
+.showcase__role {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--navy-soft);
+  margin-top: -0.6rem;
+}
+
+.showcase__summary {
+  color: var(--ink-2);
+}
+
+.showcase__facts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.showcase__facts li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: var(--fs-small);
+  color: var(--ink-2);
+}
+
+.showcase__facts li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.68em;
+  width: 7px;
+  height: 1px;
+  background: var(--navy-soft);
+}
+
+.showcase__cta {
+  margin-top: 0.5rem;
+}
+
+/* Company site preview (single-product companies) ----------------------- */
+
+.showcase__media-note {
+  margin-top: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.08em;
+  color: var(--ink-4);
+}
+
+/* Product collection ---------------------------------------------------- */
+
+/* The body runs full width and the product grid sits underneath it. */
+.showcase--stacked {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.showcase--stacked .showcase__body {
+  max-width: 74ch;
+}
+
+.apps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.apps__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+  gap: clamp(1.6rem, 1rem + 1.6vw, 2.4rem);
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* The whole preview is the link target; text below stays selectable. */
+.app__link {
+  display: block;
+  border-radius: 10px;
+  transition: transform var(--dur) var(--ease);
+}
+
+.app__link .media {
+  transition: box-shadow var(--dur) var(--ease);
+}
+
+.app__link:hover {
+  transform: translateY(-3px);
+}
+
+/* Stands in for the outbound arrow, which would float oddly under an image. */
+.app__link:hover .media,
+.app__link:focus-visible .media {
+  box-shadow: 0 0 0 1px var(--navy);
+}
+
+.app__link:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 3px;
+}
+
+.app__media {
+  margin-bottom: 0.35rem;
+}
+
+.app__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.app__name {
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.app__status {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+.app__status--live {
+  color: var(--navy);
+}
+
+.app__tagline {
+  font-size: var(--fs-small);
+  color: var(--navy-soft);
+}
+
+.app__description {
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+.app__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.15rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  color: var(--ink-4);
+}
+
+.app__reach {
+  padding: 0.16rem 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-3);
+}
+
+/* Client work ----------------------------------------------------------- */
+
+.clients {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  width: 100%;
+}
+
+.clients__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+  gap: 0.75rem 1.5rem;
+}
+
+.client {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding-left: 0.85rem;
+  border-left: 1px solid var(--line-strong);
+}
+
+.client__name {
+  font-size: var(--fs-small);
+  font-weight: 500;
+}
+
+.client__sector {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  color: var(--ink-4);
+}
+
+@media (max-width: 900px) {
+  .showcase {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .showcase__media {
+    position: static;
+  }
+
+  /* Hill Web Works: header, then site preview, then the copy. */
+  .showcase:not(.showcase--stacked) {
+    grid-template-areas:
+      "head"
+      "media"
+      "copy";
+  }
+
+  .showcase:not(.showcase--stacked) .showcase__body {
+    display: contents;
+  }
+
+  .showcase:not(.showcase--stacked) .showcase__head {
+    grid-area: head;
+  }
+
+  .showcase:not(.showcase--stacked) .showcase__copy {
+    grid-area: copy;
+  }
+
+  .showcase:not(.showcase--stacked) .showcase__media {
+    grid-area: media;
+  }
+
+  .apps__list {
+    display: flex;
+    grid-template-columns: none;
+    gap: 1rem;
+    width: auto;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    padding-bottom: 0.6rem;
+  }
+
+  .app {
+    flex: 0 0 min(78vw, 20rem);
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
+
+@media (max-width: 520px) {
+  .showcase__cta {
+    width: 100%;
+    justify-content: center;
+  }
+}

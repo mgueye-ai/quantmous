@@ -1,0 +1,141 @@
+/* ==========================================================================
+   Media frames & placeholders
+   ========================================================================== */
+
+.media {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--bg-tint);
+  border: 1px solid var(--line);
+  container-type: inline-size;
+}
+
+/* Narrow frames keep the icon and caption, and drop the filename hint. */
+@container (max-width: 230px) {
+  .media__file {
+    display: none;
+  }
+}
+
+@container (max-width: 150px) {
+  .media__caption,
+  .media__badge {
+    display: none;
+  }
+}
+
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.media--contain {
+  background: #fff;
+}
+
+.media--contain img {
+  object-fit: contain;
+  padding: 8%;
+}
+
+.media--dark {
+  background: #0a0a0a;
+}
+
+.media__placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 1.25rem;
+  text-align: center;
+  color: var(--ink-3);
+  background-image: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--navy) 4%, transparent) 25%,
+      transparent 25%,
+      transparent 50%,
+      color-mix(in srgb, var(--navy) 4%, transparent) 50%,
+      color-mix(in srgb, var(--navy) 4%, transparent) 75%,
+      transparent 75%
+    );
+  background-size: 14px 14px;
+}
+
+.media--compact .media__placeholder {
+  padding: 0.5rem;
+  background-size: 10px 10px;
+}
+
+.media--compact .media__mark {
+  width: 34px;
+  height: 34px;
+}
+
+.media__mark {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--navy-soft);
+}
+
+.media__caption {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.media__file {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  color: var(--ink-4);
+  word-break: break-all;
+}
+
+.media__badge {
+  position: absolute;
+  top: 0.7rem;
+  left: 0.7rem;
+  padding: 0.18rem 0.5rem;
+  border-radius: 4px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+/* ==========================================================================
+   Social icon links
+   ========================================================================== */
+
+.icon-link {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  color: var(--ink-2);
+  transition: color 200ms var(--ease), background-color 200ms var(--ease),
+    border-color 200ms var(--ease);
+}
+
+.icon-link:hover {
+  color: var(--navy);
+  background: var(--bg-navy-tint);
+  border-color: color-mix(in srgb, var(--navy) 12%, transparent);
+}

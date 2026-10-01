@@ -1,0 +1,710 @@
+/* ==========================================================================
+   Horizontal timeline (wide screens, motion allowed)
+   ========================================================================== */
+
+.tlh {
+  /* Scroll distance equals the sideways travel, so the two stay in step. */
+  position: relative;
+  height: calc(100svh + var(--tlh-distance, 0px) + var(--tlh-hold, 0px));
+  margin-top: clamp(1rem, 0.5rem + 1vw, 2rem);
+}
+
+.tlh__sticky {
+  position: sticky;
+  top: var(--nav-h);
+  height: calc(100svh - var(--nav-h));
+  display: grid;
+  /* Without an explicit minimum the column would stretch to the track width. */
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 0.9rem;
+  padding-block: 1.25rem 2rem;
+}
+
+.tlh__bar {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+}
+
+.tlh__counter {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.1em;
+  color: var(--ink-4);
+}
+
+.tlh__counter-now {
+  font-size: var(--fs-small);
+  color: var(--navy);
+}
+
+.tlh__current {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.tlh__hint {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+.tlh__rail {
+  position: relative;
+  height: 14px;
+}
+
+.tlh__rail-line {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  top: 50%;
+  height: 1px;
+  background: var(--line-strong);
+}
+
+.tlh__rail-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--tlh-progress, 0) * 100%);
+  background: var(--navy);
+}
+
+.tlh__ticks {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  top: 50%;
+  translate: 0 -50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tlh__tick {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--line-strong);
+  transition: width 260ms var(--ease), height 260ms var(--ease),
+    background-color 260ms var(--ease), border-color 260ms var(--ease);
+}
+
+.tlh__tick[data-passed='true'] {
+  background: var(--navy);
+  border-color: var(--navy);
+}
+
+.tlh__tick[data-state='active'] {
+  width: 11px;
+  height: 11px;
+  background: var(--navy);
+  border-color: var(--navy);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--navy) 10%, transparent);
+}
+
+.tlh__viewport {
+  /* `clip` rather than `hidden`: the browser must not be able to scroll this
+     box behind our backs when focus moves into an off-screen card. */
+  overflow: clip;
+  min-height: 0;
+  min-width: 0;
+}
+
+.tlh__track {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(1.25rem, 0.5rem + 1.5vw, 2.25rem);
+  height: 100%;
+  padding-inline: max(var(--gutter), (100% - var(--maxw)) / 2 + var(--gutter));
+  will-change: transform;
+}
+
+.tlh-card {
+  flex: 0 0 auto;
+  width: clamp(290px, 24vw, 370px);
+  display: flex;
+  min-height: 0;
+  padding-top: 1rem;
+  border-top: 2px solid var(--line-strong);
+  opacity: 0.42;
+  scale: 0.975;
+  transform-origin: center top;
+  transition: opacity 420ms var(--ease), scale 420ms var(--ease),
+    border-color 420ms var(--ease);
+}
+
+.tlh-card[data-state='adjacent'] {
+  opacity: 0.72;
+}
+
+.tlh-card[data-state='active'] {
+  opacity: 1;
+  scale: 1;
+  border-top-color: var(--navy);
+}
+
+.tlh-card__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.7rem;
+  width: 100%;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  padding-right: 0.25rem;
+}
+
+.tlh-card__date {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+.tlh-card[data-state='active'] .tlh-card__date {
+  color: var(--navy-soft);
+}
+
+.tlh-card__cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.tlh-card__cat {
+  padding: 0.1rem 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 0.7rem;
+  color: var(--ink-4);
+  white-space: nowrap;
+}
+
+.tlh-card[data-state='active'] .tlh-card__cat {
+  color: var(--navy);
+  border-color: color-mix(in srgb, var(--navy) 22%, transparent);
+  background: var(--bg-navy-tint);
+}
+
+.tlh-card__title {
+  font-size: clamp(1.15rem, 1rem + 0.6vw, 1.5rem);
+  letter-spacing: -0.03em;
+}
+
+.tlh-card__summary {
+  font-size: var(--fs-small);
+  color: var(--ink-3);
+  line-height: 1.45;
+  margin-top: -0.3rem;
+}
+
+.tlh-card__media {
+  margin-block: 0.2rem;
+}
+
+.tlh-card__description {
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+.tlh-card__facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.5rem 1rem;
+  width: 100%;
+  margin: 0;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--line);
+}
+
+.tlh-card__facts dt {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+.tlh-card__facts dd {
+  margin: 0;
+  font-size: var(--fs-small);
+  color: var(--ink);
+}
+
+.tlh-card__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.tlh-card__details li {
+  position: relative;
+  padding-left: 0.9rem;
+  font-size: var(--fs-micro);
+  color: var(--ink-3);
+}
+
+.tlh-card__details li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 6px;
+  height: 1px;
+  background: var(--navy-soft);
+}
+
+@media (max-height: 820px) {
+  .tlh-card__inner {
+    gap: 0.55rem;
+  }
+}
+
+/* ==========================================================================
+   Swipe timeline (narrow screens)
+   ========================================================================== */
+
+.tls {
+  --tlh-progress: 0;
+  margin-top: 0.5rem;
+  padding-bottom: 1.25rem;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.tls .tlh__bar {
+  margin-bottom: 0.85rem;
+}
+
+.tls .tlh__rail {
+  margin-bottom: 1.1rem;
+}
+
+.tls__viewport {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.tls__track {
+  display: flex;
+  align-items: stretch;
+  gap: 1rem;
+  width: max-content;
+  padding-inline: var(--gutter);
+  padding-bottom: 0.75rem;
+}
+
+.tls .tlh-card {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  width: min(78vw, 22rem);
+  height: auto;
+  opacity: 1;
+  scale: 1;
+}
+
+.tls .tlh-card__inner {
+  overflow: visible;
+}
+
+/* ==========================================================================
+   Vertical timeline (narrow screens, or when motion is reduced)
+   ========================================================================== */
+
+.tl {
+  --tl-gap: clamp(1.4rem, 1rem + 1.4vw, 2.3rem);
+  --tl-rail: 52px;
+  --marker-top: calc(var(--tl-gap) + 9px);
+
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  column-gap: clamp(2rem, 1rem + 4vw, 4.5rem);
+  align-items: start;
+}
+
+/* ==========================================================================
+   Rail entries
+   ========================================================================== */
+
+.tl__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--tl-rail);
+  row-gap: 0.35rem;
+  padding-block: var(--tl-gap);
+  text-align: right;
+  opacity: 1;
+  transition: opacity 520ms var(--ease);
+}
+
+.tl__item[data-state='adjacent'] {
+  opacity: 0.7;
+}
+
+.tl__item[data-state='far'] {
+  opacity: 0.48;
+}
+
+.tl__aside,
+.tl__main {
+  grid-column: 1;
+  min-width: 0;
+}
+
+.tl__rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: calc(var(--tl-rail) / 2 - 0.5px);
+  width: 1px;
+  background: var(--line-strong);
+}
+
+/* Progress fill: grows to the marker on the active entry, full height once passed. */
+.tl__rail::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 0;
+  background: var(--navy);
+  transition: height 620ms var(--ease);
+}
+
+.tl__item[data-state='active'] .tl__rail::after {
+  height: var(--marker-top);
+}
+
+.tl__item[data-passed='true'] .tl__rail::after {
+  height: 100%;
+}
+
+.tl__marker {
+  position: absolute;
+  top: var(--marker-top);
+  left: 50%;
+  translate: -50% -50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1px solid var(--line-strong);
+  transition: width 320ms var(--ease), height 320ms var(--ease),
+    background-color 320ms var(--ease), border-color 320ms var(--ease),
+    box-shadow 320ms var(--ease);
+}
+
+.tl__item[data-passed='true'] .tl__marker {
+  background: var(--navy);
+  border-color: var(--navy);
+}
+
+.tl__item[data-state='active'] .tl__marker {
+  width: 14px;
+  height: 14px;
+  background: var(--navy);
+  border-color: var(--navy);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--navy) 10%, transparent);
+}
+
+.tl__date {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  line-height: 1.4;
+  transition: color 320ms var(--ease);
+}
+
+.tl__item[data-state='active'] .tl__date {
+  color: var(--navy-soft);
+}
+
+.tl__cats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.3rem 0.5rem;
+  margin-top: 0.4rem;
+}
+
+.tl__cat {
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-4);
+  padding: 0.1rem 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.tl__item[data-state='active'] .tl__cat {
+  color: var(--navy);
+  border-color: color-mix(in srgb, var(--navy) 22%, transparent);
+  background: var(--bg-navy-tint);
+}
+
+.tl__entry {
+  display: block;
+  width: 100%;
+  text-align: right;
+  scale: 0.985;
+  transform-origin: right center;
+  transition: scale 420ms var(--ease);
+}
+
+.tl__item[data-state='active'] .tl__entry {
+  scale: 1;
+}
+
+.tl__entry:focus-visible {
+  outline-offset: 6px;
+}
+
+.tl__title {
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.45rem);
+  letter-spacing: -0.025em;
+  color: var(--ink-2);
+  transition: color 320ms var(--ease);
+}
+
+.tl__item[data-state='active'] .tl__title {
+  color: var(--ink);
+}
+
+.tl__entry:hover .tl__title {
+  color: var(--navy);
+}
+
+.tl__summary {
+  margin-top: 0.3rem;
+  font-size: var(--fs-small);
+  color: var(--ink-3);
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   Sticky detail panel (desktop)
+   ========================================================================== */
+
+/* Stretch the cell so `position: sticky` has the whole timeline to travel. */
+.tl__panel {
+  align-self: stretch;
+  height: 100%;
+}
+
+.tl__panel-sticky {
+  position: sticky;
+  top: calc(var(--nav-h) + 2.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: calc(100svh - var(--nav-h) - 4rem);
+  overflow-y: auto;
+  padding-right: 0.25rem;
+  scrollbar-width: thin;
+}
+
+.tl__counter {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.1em;
+  color: var(--ink-4);
+}
+
+.tl__counter-now {
+  color: var(--navy);
+  font-size: var(--fs-small);
+}
+
+.tl__panel-body {
+  animation: panel-in 440ms var(--ease) both;
+}
+
+.tl__panel-body:focus-visible {
+  outline-offset: 8px;
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* ==========================================================================
+   Detail content (shared by sticky panel and inline mobile layout)
+   ========================================================================== */
+
+.tl-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  text-align: left;
+}
+
+.tl-detail--inline {
+  margin-top: 1rem;
+  padding-bottom: 0.25rem;
+}
+
+.tl-detail__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.tl-detail__date {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--navy-soft);
+}
+
+.tl-detail__title {
+  font-size: var(--fs-h3);
+}
+
+.tl-detail__media {
+  max-width: 560px;
+}
+
+.tl-detail__description {
+  color: var(--ink-2);
+}
+
+.tl-detail__facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.9rem 1.5rem;
+  width: 100%;
+  margin: 0;
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.tl-detail__facts dt {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  margin-bottom: 0.15rem;
+}
+
+.tl-detail__facts dd {
+  margin: 0;
+  font-size: var(--fs-small);
+  color: var(--ink);
+}
+
+.tl-detail__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.tl-detail__details li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: var(--fs-small);
+  color: var(--ink-2);
+}
+
+.tl-detail__details li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.68em;
+  width: 7px;
+  height: 1px;
+  background: var(--navy-soft);
+}
+
+/* ==========================================================================
+   Mobile: rail on the left, details stacked beneath each marker
+   ========================================================================== */
+
+@media (max-width: 960px) {
+  .tl {
+    --tl-rail: 34px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tl__item {
+    grid-template-columns: var(--tl-rail) minmax(0, 1fr);
+    column-gap: 0.25rem;
+    text-align: left;
+  }
+
+  .tl__aside,
+  .tl__main {
+    grid-column: 2;
+  }
+
+  .tl__rail {
+    right: auto;
+    left: calc(var(--tl-rail) / 2 - 0.5px);
+  }
+
+  .tl__cats {
+    justify-content: flex-start;
+  }
+
+  .tl__title {
+    font-size: 1.25rem;
+    color: var(--ink);
+  }
+
+  .tl__item[data-state='far'] {
+    opacity: 0.58;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl__item[data-state='adjacent'],
+  .tl__item[data-state='far'] {
+    opacity: 1;
+  }
+
+  .tl__entry {
+    scale: 1;
+  }
+
+  .tl__panel-body {
+    animation: none;
+  }
+}
