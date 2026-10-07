@@ -81,27 +81,14 @@ body {
   html,
   body {
     max-width: 100%;
+    overflow-x: clip;
   }
 
   .hero,
   .stack,
-  .section {
+  .section,
+  #main {
     overflow-x: clip;
-    max-width: 100%;
-  }
-
-  /* Sticky sideways tracks need overflow visible or position:sticky dies. */
-  .section.journey,
-  .stack.stack--mous {
-    overflow: visible;
-  }
-}
-
-@media (max-width: 900px) {
-  .section.journey,
-  .stack.stack--mous {
-    overflow: visible;
-    min-width: 0;
     max-width: 100%;
   }
 }

@@ -117,6 +117,8 @@
   position: relative;
   height: calc(100svh + var(--tlh-distance, 0px) + var(--tlh-hold, 0px));
   margin-top: 0.5rem;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .apps-h__sticky {
@@ -128,6 +130,8 @@
   grid-template-rows: auto auto minmax(0, 1fr);
   gap: 0.9rem;
   padding-block: 1.25rem 2rem;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 .apps-h__viewport {

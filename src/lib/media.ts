@@ -15,7 +15,7 @@ import mousAppsSite from '../assets/media/mous-apps-site.jpg'
 import headshot from '../assets/media/moustapha-headshot.webp'
 import mysticalMath from '../assets/media/mystical-math.png'
 import nyuLogo from '../assets/media/nyu-logo.png'
-import resume from '../assets/media/resume.pdf'
+import resume from '../assets/media/MoustaphaGueye_Resume.pdf'
 import synchronyDeck from '../assets/media/synchrony-deck.jpg'
 import tedxTalk from '../assets/media/tedx-talk.jpg'
 
